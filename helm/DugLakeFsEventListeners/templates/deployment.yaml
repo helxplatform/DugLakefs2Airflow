@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "DugLakeFsEventListeners.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "DugLakeFsEventListeners.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "DugLakeFsEventListeners.labels" . | nindent 8 }}
+    spec:
+      restartPolicy: Always
+      volumes:
+        - name: pv-storage
+          persistentVolumeClaim:
+            claimName: {{ .Release.Name }}-pvc
+      containers:
+        - name: pod-main
+          image: python:3-alpine
+          env:
+            - name: AIRFLOW_URL
+              value: {{ .Values.Airflow.url}}
+          command:
+            - sh
+            - -c
+            - |
+             apk add wget
+             cd /data;
+             echo STARTED;
+             echo DOWNLOADING DugLakefsEventListeners release {{ .Values.DugLakefsEventListeners.release_version }}
+             wget https://github.com/helxplatform/DugLakefsEventListeners/releases/download/{{ .Values.DugLakefsEventListeners.release_version }}/source.tar.gz
+             echo UNPACKING
+             tar xzvf source.tar.gz;
+             ls -lha;
+             cd  ./DugLakefsEventListeners;
+             echo INSTALLING REQUIREMENTS
+             pip install -r ../requirements.txt;
+             echo STARTING SERVER
+             python main.py;
+
+          volumeMounts:
+            - name: pv-storage
+              mountPath: /data
+          ports:
+            - name: http
+              containerPort: 8001
+              protocol: TCP
+
+
