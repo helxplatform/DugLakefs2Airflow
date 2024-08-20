@@ -37,3 +37,6 @@ invoke_airflow_with_diff_config.json contains information about dags, which each
             }
         ]
     }
+
+
+Helm chart requires Airflow.url to be updated in Values file according to your setup.
