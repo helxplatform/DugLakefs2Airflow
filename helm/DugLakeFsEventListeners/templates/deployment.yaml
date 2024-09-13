@@ -38,7 +38,7 @@ spec:
              cd /data;
              echo STARTED;
              echo DOWNLOADING DugLakefsEventListeners release {{ .Values.DugLakefsEventListeners.release_version }}
-             wget https://github.com/helxplatform/DugLakefsEventListeners/releases/download/{{ .Values.DugLakefsEventListeners.release_version }}/source.tar.gz
+             wget https://github.com/helxplatform/DugLakefsEventListeners/releases/download/{{ .Values.DugLakefsEventListeners.release_version }}
              echo UNPACKING
              tar xzvf source.tar.gz;
              ls -lha;
