@@ -37,14 +37,15 @@ spec:
              apk add wget
              cd /data;
              echo STARTED;
-             echo DOWNLOADING DugLakefsEventListeners release {{ .Values.DugLakefsEventListeners.release_version }}
-             wget https://github.com/helxplatform/DugLakefsEventListeners/releases/download/{{ .Values.DugLakefsEventListeners.release_version }}
+             echo DOWNLOADING DugLakefsEventListeners release {{ .Values.DugLakefsEventListeners.git_commit_id }}
+             wget https://github.com/helxplatform/DugLakefsEventListeners/archive/{{ .Values.DugLakefsEventListeners.git_commit_id }}.tar.gz
              echo UNPACKING
-             tar xzvf source.tar.gz;
+             tar xzvf {{ .Values.DugLakefsEventListeners.git_commit_id }}.tar.gz;
+             mv DugLakefsEventListeners-{{ .Values.DugLakefsEventListeners.git_commit_id }} DugLakefsEventListeners
+             cd  ./DugLakefsEventListeners/src;
              ls -lha;
-             cd  ./DugLakefsEventListeners;
              echo INSTALLING REQUIREMENTS
-             pip install -r ../requirements.txt;
+             pip install -r ./requirements.txt;
              echo STARTING SERVER
              python main.py;
 
