@@ -11,6 +11,7 @@ AIRFLOW_URL = "http://airflow:airflow@127.0.0.1:8080/api/v1/"
 app = Flask(__name__)
 
 
+
 def invoke_airflow_dag(dag_id, repository_id, branch_name, last_commit_id, new_commit_id) -> bool:
 
     params = \
@@ -70,6 +71,8 @@ def invoke_airflow_with_diff():
     return jsonify(output_data)
 
 if __name__ == '__main__':
+    logging.basicConfig(filename='logs.log', level=logging.DEBUG, format="%(asctime)s:%(levelname)s: %(message)s")
+    logging.getLogger().addHandler(logging.StreamHandler())
     AIRFLOW_URL = os.environ.get("AIRFLOW_URL", AIRFLOW_URL)
     app.debug = True
     app.run(host='0.0.0.0', port=8001)
