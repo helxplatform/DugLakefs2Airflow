@@ -12,3 +12,20 @@ Content-Type: application/json
   "tag_id" : "erer34",
   "commit_id" : "cad1136eb748603c3379cda715d23422126af9ae6ebd541a52e28c61011bd57c"
 }
+###
+
+POST http://127.0.0.1:8001/invoke_airflow_with_diff
+Content-Type: application/json
+
+{
+  "event_type" : "post-create-tag",
+  "event_time" : "2024-08-08T00:09:53Z",
+  "action_name": "annotate_and_index",
+  "hook_id": "no_temp",
+  "repository_id": "bacpac-test",
+  "source_ref" : "620eb527c6b4c4359a79ed58b2fc83c76490e910aa39288e9bc5bc1c25ba3b0d",
+  "tag_id" : "t1",
+  "commit_id" : "620eb527c6b4c4359a79ed58b2fc83c76490e910aa39288e9bc5bc1c25ba3b0d"
+}
+
+

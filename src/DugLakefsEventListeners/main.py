@@ -12,6 +12,7 @@ app = Flask(__name__)
 
 
 def invoke_airflow_dag(dag_id, repository_id, branch_name, last_commit_id, new_commit_id) -> bool:
+
     params = \
         {
             'conf':
@@ -22,7 +23,11 @@ def invoke_airflow_dag(dag_id, repository_id, branch_name, last_commit_id, new_c
                       'commitid_to' : new_commit_id
                   }
         }
-    resp = requests.post(AIRFLOW_URL + f"dags/{dag_id}/dagRuns", json=params)
+    url = AIRFLOW_URL + f"dags/{dag_id}/dagRuns"
+    logging.info("Calling Airflow DAG {}".format(dag_id))
+    logging.info("Url: {}".format(url))
+    logging.info("Params: {}".format(params))
+    resp = requests.post(url, json=params)
     logging.info(resp.json())
     if resp.status_code == 200:
         return True

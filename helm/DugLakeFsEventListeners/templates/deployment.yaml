@@ -47,7 +47,8 @@ spec:
              echo INSTALLING REQUIREMENTS
              pip install -r ./requirements.txt;
              echo STARTING SERVER
-             python ./DugLakefsEventListeners/main.py;
+             cd DugLakefsEventListeners
+             python ./main.py;
 
           volumeMounts:
             - name: pv-storage
