@@ -28,7 +28,7 @@ def invoke_airflow_dag(dag_id, repository_id, branch_name, last_commit_id, new_c
     logging.info("Url: {}".format(url))
     logging.info("Params: {}".format(params))
     resp = requests.post(url, json=params)
-    logging.info(resp.json())
+    logging.info(resp)
     if resp.status_code == 200:
         return True
     else:
