@@ -40,17 +40,17 @@ spec:
              echo STARTED;
              echo DOWNLOADING DugLakefsEventListeners release {{ .Values.DugLakefsEventListeners.git_commit_id }}
               {{ if .Values.DugLakefsEventListeners.git_commit_id }}
-             wget -o DLEL.tar.gz https://github.com/helxplatform/DugLakefsEventListeners/archive/{{ .Values.DugLakefsEventListeners.git_commit_id }}.tar.gz
+             wget -O DLEL.tar.gz https://github.com/helxplatform/DugLakefsEventListeners/archive/{{ .Values.DugLakefsEventListeners.git_commit_id }}.tar.gz
              echo UNPACKING
              tar xzvf DLEL.tar.gz;
              mv ./DLEL ./code
               {{else}}
-             wget -o DLEL.tar.gz https://github.com/helxplatform/DugLakefsEventListeners/archive/refs/heads/{{ .Values.DugLakefsEventListeners.branch}}.tar.gz
+             wget -O DLEL.tar.gz https://github.com/helxplatform/DugLakefsEventListeners/archive/refs/heads/{{ .Values.DugLakefsEventListeners.branch}}.tar.gz
              echo UNPACKING
              tar xzvf DLEL.tar.gz;
-             mv ./DLEL/DugLakefsEventListeners* ./code
+             mv ./DugLakefsEventListeners* ./code
               {{ end}}
-             cd  ./code;
+             cd  ./code/src;
              ls -lha;
              echo INSTALLING REQUIREMENTS
              pip install -r ./requirements.txt;
