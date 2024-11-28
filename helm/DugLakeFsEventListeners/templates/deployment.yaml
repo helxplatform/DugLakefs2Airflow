@@ -35,17 +35,22 @@ spec:
             - -c
             - |
              apk add curl
+             apk add wget
              cd /data;
              echo STARTED;
              echo DOWNLOADING DugLakefsEventListeners release {{ .Values.DugLakefsEventListeners.git_commit_id }}
               {{ if .Values.DugLakefsEventListeners.git_commit_id }}
-             curl -o DLEL.tar.gz https://github.com/helxplatform/DugLakefsEventListeners/archive/{{ .Values.DugLakefsEventListeners.git_commit_id }}.tar.gz
-              {{else}}
-             curl -o DLEL.tar.gz https://github.com/helxplatform/DugLakefsEventListeners/archive/refs/heads/{{ .Values.DugLakefsEventListeners.branch}}.tar.gz
-              {{ end}}
+             wget -o DLEL.tar.gz https://github.com/helxplatform/DugLakefsEventListeners/archive/{{ .Values.DugLakefsEventListeners.git_commit_id }}.tar.gz
              echo UNPACKING
              tar xzvf DLEL.tar.gz;
-             cd  ./DLEL/src;
+             mv ./DLEL ./code
+              {{else}}
+             wget -o DLEL.tar.gz https://github.com/helxplatform/DugLakefsEventListeners/archive/refs/heads/{{ .Values.DugLakefsEventListeners.branch}}.tar.gz
+             echo UNPACKING
+             tar xzvf DLEL.tar.gz;
+             mv ./DLEL/DugLakefsEventListeners* ./code
+              {{ end}}
+             cd  ./code;
              ls -lha;
              echo INSTALLING REQUIREMENTS
              pip install -r ./requirements.txt;
