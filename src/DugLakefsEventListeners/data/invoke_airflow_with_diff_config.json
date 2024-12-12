@@ -1,15 +1,15 @@
 {
     "dags": [
         {
-            "dag_id": "test_dag",
-            "repository_id": "repo1",
-            "branch_name": "branch1",
-            "last_commit_id": "cad1136eb748603c3379cda715d23422126af9ae6ebd541a52e28c61011bd57c"
+            "dag_id": "dag_test",
+            "repository_id": "bacpac-test",
+            "branch_name": "main",
+            "last_commit_id": null
         },
         {
             "dag_id": "annotate_and_index",
-            "repository_id": "bacpac-test",
-            "branch_name": "develop",
+            "repository_id": "bacpac",
+            "branch_name": "main",
             "last_commit_id": null
         }
     ]
