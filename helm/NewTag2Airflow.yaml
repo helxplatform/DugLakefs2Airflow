@@ -1,0 +1,10 @@
+name: NewTag2Airflow
+description: none
+on:
+  post-create-tag:
+hooks:
+  - id: hook1
+    type: webhook
+    description: none
+    properties:
+      url: "http://duglakefseventlisteners-service.default.svc.cluster.local:80/invoke_airflow_with_diff"
